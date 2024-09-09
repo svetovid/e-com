@@ -1,0 +1,20 @@
+version: '3.4'
+
+services:
+  btm.web.app:
+    image: ${DOCKER_REGISTRY-}btmwebapp
+    build:
+      context: hosts
+      dockerfile: web/btm.web.app/Dockerfile
+
+  lighthouse:
+    image: ${DOCKER_REGISTRY-}lighthouse
+    build:
+      context: hosts
+      dockerfile: lighthouse/Dockerfile
+
+  btm.paas:
+    image: ${DOCKER_REGISTRY-}btmpaas
+    build:
+      context: hosts
+      dockerfile: paas/Dockerfile
