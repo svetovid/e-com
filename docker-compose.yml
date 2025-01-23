@@ -6,6 +6,8 @@ services:
     build:
       context: hosts
       dockerfile: web/btm.web.app/Dockerfile
+    depends_on:
+      - lighthouse
 
   lighthouse:
     image: ${DOCKER_REGISTRY-}lighthouse
@@ -18,3 +20,5 @@ services:
     build:
       context: hosts
       dockerfile: paas/Dockerfile
+    depends_on:
+      - lighthouse
