@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "btm.paas", "hosts\paas\btm.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "btm.shared", "hosts\shared\btm.shared.csproj", "{9CDDE36A-4D26-47D7-85A6-C2E67A0BA16A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "btm.tests", "tests\btm.tests.csproj", "{1AD1B4D7-669F-4860-A4B3-9690BAAB2969}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "btm.tests", "tests\btm.tests\btm.tests.csproj", "{1AD1B4D7-669F-4860-A4B3-9690BAAB2969}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "web", "web", "{5B8C78F8-EEBF-45C2-8022-8BFE99EF8DC3}"
 EndProject
