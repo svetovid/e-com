@@ -1,7 +1,10 @@
 FROM mcr.microsoft.com/dotnet/runtime:9.0-alpine AS base
 USER app
 WORKDIR /app
-EXPOSE 45066
+EXPOSE 5066
+ENV CLUSTER_SEEDS "[]"
+ENV CLUSTER_IP ""
+ENV CLUSTER_PORT "5066"
 
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release

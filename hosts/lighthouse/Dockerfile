@@ -1,7 +1,11 @@
 FROM mcr.microsoft.com/dotnet/runtime:9.0-alpine AS base
 USER app
 WORKDIR /app
-EXPOSE 45053
+EXPOSE 5053
+# should be a comma-delimited list
+ENV CLUSTER_SEEDS "[]"
+ENV CLUSTER_IP ""
+ENV CLUSTER_PORT "5053"
 
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release

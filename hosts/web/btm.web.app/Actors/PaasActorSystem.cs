@@ -1,4 +1,5 @@
 ﻿using Akka.Actor;
+using Akka.Bootstrap.Docker;
 using Akka.Configuration;
 using btm.shared.Messages;
 
@@ -13,7 +14,8 @@ namespace btm.web.app.Actors
     {
       if (_system == null)
       {
-        var cfg = ConfigurationFactory.ParseString(File.ReadAllText("Config.properties"));
+        var cfg = ConfigurationFactory.ParseString(File.ReadAllText("Config.properties"))
+                    .BootstrapFromDocker();
         _system = ActorSystem.Create("paassystem", cfg);
       }
     }

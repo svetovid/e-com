@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Akka.Actor;
+using Akka.Bootstrap.Docker;
 using Akka.Configuration;
 using Akka.DependencyInjection;
 using btm.paas.Actors;
@@ -43,10 +44,8 @@ namespace btm.paas
                 .CreateLogger();
 
             string root = new FileInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).DirectoryName;
-            Config cfg = ConfigurationFactory.ParseString(File.ReadAllText(Path.Combine(root, "Config.properties")));
-            Config finalConfig = port > 0
-                ? ConfigurationFactory.ParseString($"akka.remote.dot-netty.tcp.port = {port}").WithFallback(cfg)
-                : cfg;
+            Config cfg = ConfigurationFactory.ParseString(File.ReadAllText(Path.Combine(root, "Config.properties")))
+                .BootstrapFromDocker();
 
             Serilog.Debugging.SelfLog.Enable(msg => Debug.WriteLine(msg));
 
@@ -59,7 +58,7 @@ namespace btm.paas
 
             DatabaseUpdate(serviceProvider, configuration);
 
-            ActorSystem _paasActorSystem = ActorSystem.Create("paassystem", finalConfig);
+            ActorSystem _paasActorSystem = ActorSystem.Create("paassystem", cfg);
             _paasActorSystem.ActorOf(Props.Create(() => new PaasActor(serviceProvider)), "paas");
             _paasActorSystem.WhenTerminated.Wait();
 
