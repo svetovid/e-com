@@ -25,7 +25,16 @@ namespace btm.web.app.Client.Pages
             if (firstRender)
             {
                 hubConnection = new HubConnectionBuilder()
-                  .WithUrl(NavigationManager.ToAbsoluteUri("/hubs/payment"))
+                  .WithUrl(NavigationManager.ToAbsoluteUri("/hubs/payment"), conf => 
+                  {
+                      if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+                      {
+                          conf.HttpMessageHandlerFactory = (x) => new HttpClientHandler
+                          {
+                              ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+                          };
+                      }
+                  })
                   .Build();
 
                 hubConnection.On<PaymentStatus>("UpdateStatus", message =>
